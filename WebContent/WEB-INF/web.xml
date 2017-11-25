@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	id="WebApp_ID" version="3.1">
+	<display-name>LOG619LAB5</display-name>
+	<session-config>
+		<session-timeout>1</session-timeout>
+	</session-config>
+	<servlet>
+		<servlet-name>Home</servlet-name>
+		<servlet-class>com.pro.servlets.Home</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Home</servlet-name>
+		<url-pattern>/Home</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>NouveauUtilisateur</servlet-name>
+		<servlet-class>com.pro.servlets.NouveauUtilisateur</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>NouveauUtilisateur</servlet-name>
+		<url-pattern>/Home/NouveauUtilisateur</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>ListeUtilisateur</servlet-name>
+		<servlet-class>com.pro.servlets.ListeUtilisateur</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ListeUtilisateur</servlet-name>
+		<url-pattern>/Home/ListeUtilisateur</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>Administration</servlet-name>
+		<servlet-class>com.pro.servlets.Administration</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Administration</servlet-name>
+		<url-pattern>/Home/Administration</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>Inscription</servlet-name>
+		<servlet-class>com.pro.servlets.Inscription</servlet-class>
+	</servlet>
+
+
+	<servlet-mapping>
+		<servlet-name>Inscription</servlet-name>
+		<url-pattern>/Inscription</url-pattern>
+	</servlet-mapping>
+
+
+	<servlet>
+		<servlet-name>Identification</servlet-name>
+		<servlet-class>com.pro.servlets.Identification</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Identification</servlet-name>
+		<url-pattern>/Identification</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>Deconnexion</servlet-name>
+		<servlet-class>com.pro.servlets.Deconnexion</servlet-class>
+	</servlet>
+
+
+	<servlet-mapping>
+		<servlet-name>Deconnexion</servlet-name>
+		<url-pattern>/Deconnexion</url-pattern>
+	</servlet-mapping>
+
+	<listener>
+		<listener-class>com.pro.config.InitialisationDaoFactory</listener-class>
+	</listener>
+</web-app>

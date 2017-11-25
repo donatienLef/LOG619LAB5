@@ -1,0 +1,38 @@
+*
+{
+	background-color: rgb(58,58,58);
+	color: #fff ;
+	border: 20 black outset;
+	margin-left: 1%;
+	margin-right: 1%;
+}
+
+
+h1{
+	text-align: center;
+}
+
+body{
+	text-align: center;
+}
+nav{
+	text-align: left;
+}
+nav ul{
+	padding: 0px;
+	margin: 0px;
+}
+nav li{
+	list-style-type: none;
+
+
+}
+th{
+	color: blue;
+}
+div{
+	text-align: center;
+}
+table{
+	table-layout: auto;
+}

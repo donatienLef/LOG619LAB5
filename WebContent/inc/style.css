@@ -1,0 +1,152 @@
+*
+{
+	border: 20 black outset;
+	background-color: rgb(64,82,87);
+	color: white;
+	margin: 5px;
+	font-family: Verdana, Geneva, Arial, sans-serif; font-size: small;
+	line-height: 180%
+
+}
+header
+{
+	text-align: center;
+	
+}
+html, body {
+	height: 100%;
+	margin: 0; padding: 0;
+}
+
+body {
+	text-align: center;
+}
+footer {
+	text-align: : center;
+	display : table-row;
+	height: 100px; /* à titre d'exemple */
+}
+
+h1
+{
+	text-align: center;
+	height: 30px;
+	font-size: 20px;
+}
+
+
+p
+{
+	overflow: auto;
+	word-wrap: break-word;
+
+}
+section
+{
+}
+
+
+
+
+#navigation {
+	position: relative;
+	width: 30%;
+	margin-top: 10px;
+	padding: 0;
+	float: left;
+	list-style-type: none;
+	background: rgb(92,112,117);
+
+
+}
+
+#navigation li a {
+	text-decoration: none ;
+	position: relative;
+	margin-top: 2px;
+	float: left;
+}
+#navigation li a:hover, #navigation li a:focus, #navigation li a:active {
+	background: #900 ;
+	text-decoration: underline ;
+}
+
+
+#corps{
+	margin-top: 10px;
+	display: inline;
+	margin-left: auto;
+	margin-right: auto;
+	width: 70%;
+}
+
+
+#conteneur
+{
+	border: 1px solid black;
+	/*text-align: justify;*/
+	padding: 12px;
+	background-color: white;
+	justify-content: space-around;
+
+}
+.element
+{	
+	padding: 12px;
+	width: 340px;
+	text-align: center;
+	margin: auto;
+}
+.element:nth-child(2)
+{
+	background-color: grey;
+}
+
+ul.sansPuce{
+	list-style-type: none;
+	text-align: left;
+
+}
+
+span.photo
+{
+	border: 3px black outset;
+	float: right;
+}
+span.date
+{
+	font-weight: bold;
+}
+/* Tableaux -------------------------------------------------------------------------------------*/
+table{
+	border-collapse: collapse;
+	text-align: center;
+	
+	
+}
+tr.pair{
+	background-color: #efefef;
+}
+tr.impair{
+	background-color: #fff;	
+}
+th{
+	color: #0568CD;
+	border: 1px solid #0568CD;
+	padding: 5px;
+}
+th.action{
+	border: 1px solid #900;
+	color: #900;
+}
+td{
+	border: 1px solid #ddd;
+	padding: 5px;
+}
+td.action{
+	text-align: center;
+}
+#navigation img{
+	width: 20%;
+	float: left;
+}

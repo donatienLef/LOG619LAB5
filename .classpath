@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.launching.macosx.MacOSXType/Java SE 8 [1.8.0_101]">
+		<attributes>
+			<attribute name="owner.project.facets" value="java"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="/Users/lefranc/Downloads/easymock-3.5/easymock-3.5.jar"/>
+	<classpathentry kind="lib" path="/Users/lefranc/Downloads/apache-commons.jar"/>
+	<classpathentry kind="lib" path="/Users/lefranc/Downloads/org-apache-commons-codec.jar"/>
+	<classpathentry kind="lib" path="/Users/lefranc/Downloads/jbcrypt-0.3m.jar"/>
+	<classpathentry kind="lib" path="/Users/lefranc/Downloads/javax.servlet-3.0.jar" sourcepath="/Users/lefranc/.m2/repository/org/glassfish/javax.servlet/3.0/javax.servlet-3.0-sources.jar"/>
+	<classpathentry kind="output" path="build/classes"/>
+</classpath>
