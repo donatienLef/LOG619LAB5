@@ -1,0 +1,138 @@
+-- phpMyAdmin SQL Dump
+-- version 4.6.5.2
+-- https://www.phpmyadmin.net/
+--
+-- Client :  localhost:8889
+-- Généré le :  Sam 25 Novembre 2017 à 22:35
+-- Version du serveur :  5.6.35
+-- Version de PHP :  7.0.15
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+--
+-- Base de données :  `MC2I`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `Configurations`
+--
+
+CREATE TABLE `Configurations` (
+  `idConfiguration` int(11) NOT NULL,
+  `nomConfiguration` varchar(30) NOT NULL,
+  `mdpPattern` varchar(100) NOT NULL DEFAULT '*{8,}',
+  `nbeTentativeMax` int(2) NOT NULL DEFAULT '0',
+  `nbeMinutesEntreTentative` int(3) NOT NULL DEFAULT '0',
+  `blocageIsPossible` tinyint(1) NOT NULL DEFAULT '0',
+  `changePasswordAfterNTentative` int(11) NOT NULL DEFAULT '0',
+  `changePasswordAfterForget` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `Configurations`
+--
+
+INSERT INTO `Configurations` (`idConfiguration`, `nomConfiguration`, `mdpPattern`, `nbeTentativeMax`, `nbeMinutesEntreTentative`, `blocageIsPossible`, `changePasswordAfterNTentative`, `changePasswordAfterForget`) VALUES
+(1, 'default', '.{20,}', 3, 3, 0, 10, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `Messages`
+--
+
+CREATE TABLE `Messages` (
+  `id_message` int(11) NOT NULL,
+  `id_utilisateur` int(11) NOT NULL,
+  `message` varchar(300) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `Messages`
+--
+
+INSERT INTO `Messages` (`id_message`, `id_utilisateur`, `message`) VALUES
+(1, 11, 'cest un début'),
+(2, 9, 'bonjour admin');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `Utilisateur`
+--
+
+CREATE TABLE `Utilisateur` (
+  `id_utilisateur` int(100) NOT NULL,
+  `nom` varchar(30) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `poste` varchar(50) NOT NULL,
+  `motdepasse` varchar(256) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `Utilisateur`
+--
+
+INSERT INTO `Utilisateur` (`id_utilisateur`, `nom`, `email`, `poste`, `motdepasse`) VALUES
+(9, 'test', 'test@test.com', 'Administrateur', '$2a$10$EqpO1XL19A0RzJS486j3NeEsL2NfcLpenZlkKhWkwJc3NQ2YG3EZq'),
+(10, 'ca1', 'ca@gmail.com', 'Client d\'affaire', '$2a$10$7zDxKzgK816U7WfkcLxwAuEyG6Y4qbxMRC5yvlwNmkDu3K5Cnki86'),
+(11, 'cr1', 'cr@gmail.com', 'Client', '$2a$10$/IH01R3AZrVKrDxs7W8Ou.jDACFDOcHAQRCkO4.MN898QdF4pN6TW'),
+(12, 'bonjour', 'bonjour@bonjour.com', 'Client affaire', '$2a$10$Mz7/WK.D.zD8YrMI9mA71ujYf8xB28iKmYOqJnV/6MoxgX6IJH.p2'),
+(13, 'test', 'test2@gmail.com', 'client', '$2a$10$PCPLeKC2UYB1l5S02/WmN.E7PgVNTmDVsjeJu3aMAH.cJe4sgnh8u'),
+(14, 'bravo', 'test@test.fr', 'Client rÃ©sidentiel', '$2a$10$JKKhJBcSYYXN.iuavJzcsuaYnxfCwN.2UPOgbdWojoWfuhSYvWJVS');
+
+--
+-- Index pour les tables exportées
+--
+
+--
+-- Index pour la table `Configurations`
+--
+ALTER TABLE `Configurations`
+  ADD PRIMARY KEY (`idConfiguration`);
+
+--
+-- Index pour la table `Messages`
+--
+ALTER TABLE `Messages`
+  ADD PRIMARY KEY (`id_message`),
+  ADD KEY `id_utilisateur` (`id_utilisateur`);
+
+--
+-- Index pour la table `Utilisateur`
+--
+ALTER TABLE `Utilisateur`
+  ADD PRIMARY KEY (`id_utilisateur`);
+
+--
+-- AUTO_INCREMENT pour les tables exportées
+--
+
+--
+-- AUTO_INCREMENT pour la table `Configurations`
+--
+ALTER TABLE `Configurations`
+  MODIFY `idConfiguration` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT pour la table `Messages`
+--
+ALTER TABLE `Messages`
+  MODIFY `id_message` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT pour la table `Utilisateur`
+--
+ALTER TABLE `Utilisateur`
+  MODIFY `id_utilisateur` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+--
+-- Contraintes pour les tables exportées
+--
+
+--
+-- Contraintes pour la table `Messages`
+--
+ALTER TABLE `Messages`
+  ADD CONSTRAINT `messages_ibfk_1` FOREIGN KEY (`id_utilisateur`) REFERENCES `Utilisateur` (`id_utilisateur`);
+
