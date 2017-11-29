@@ -53,7 +53,7 @@ public class Identification extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Configurations configuration = configurationDao.readConfigurationDefault();
 		HttpSession session = request.getSession();
-		if(configuration.getNbeTentativeMax()!=0 && (int) session.getAttribute("Tentative") >= configuration.getNbeTentativeMax()){
+		if((configuration.getNbeTentativeMax() != 0) && ((Integer) session.getAttribute("Tentative") >= configuration.getNbeTentativeMax())){
 			//alors on bloque
 			session.setAttribute("TentativeError", "vous avez dépasser le nombre de tentative");
 			request.getRequestDispatcher(VUE).forward(request, response);
@@ -70,7 +70,7 @@ public class Identification extends HttpServlet {
 				response.sendRedirect(request.getContextPath() + "/Home");
 			}
 			else if(session.getAttribute("Tentative")!=null){
-				session.setAttribute("Tentative", (int) session.getAttribute("Tentative")+1);
+				session.setAttribute("Tentative", (Integer) session.getAttribute("Tentative")+1);
 				request.getRequestDispatcher(VUE).forward(request, response);
 			}
 			else{

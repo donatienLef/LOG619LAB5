@@ -1,4 +1,4 @@
-package com.pro.servlets;
+package servlets;
 
 import static org.junit.Assert.*;
 
@@ -10,6 +10,8 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
+
+import com.pro.servlets.AddableingHttpRequest;
 import org.mindrot.jbcrypt.BCrypt;
 
 
