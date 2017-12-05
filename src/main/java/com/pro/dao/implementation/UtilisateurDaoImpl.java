@@ -1,4 +1,4 @@
-package com.pro.dao;
+package com.pro.dao.implementation;
 
 import static com.pro.dao.DAOUtilitaire.fermeturesSilencieuses;
 import static com.pro.dao.DAOUtilitaire.initialisationRequetePreparee;
@@ -7,13 +7,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.mysql.jdbc.Util;
-import com.pro.beans.Documentation;
 import com.pro.beans.Utilisateur;
+import com.pro.dao.exceptions.DAOException;
+import com.pro.dao.DAOFactory;
+import com.pro.dao.intefaces.UtilisateurDao;
 import org.mindrot.jbcrypt.*;
 
 public class UtilisateurDaoImpl implements UtilisateurDao {
@@ -25,7 +25,7 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
 	private String mdp;
 
 	// permet de recupérer la connexion à la base de donnée
-	UtilisateurDaoImpl(DAOFactory daoFactory) {
+	public UtilisateurDaoImpl(DAOFactory daoFactory) {
 		this.daoFactory = daoFactory;
 	}
 

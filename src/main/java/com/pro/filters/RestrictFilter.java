@@ -12,14 +12,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import static com.pro.Lib.Ref.UTILISATEUR;
+
 public class RestrictFilter implements Filter {
-    public static final String ACCES_PUBLIC     = "/Identification.jsp";
-    public static final String SESSION_USER = "utilisateur";
-	@Override
-	public void init(FilterConfig filterConfig) throws ServletException {
+    public static final String ACCES_PUBLIC     = "/Identification";
+    public static final String PUBLIC_FOLDER = "/public/";
+
+    public void init(FilterConfig filterConfig) throws ServletException {
 	}
 
-	@Override
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
 			throws IOException, ServletException {
         /* Cast des objets request et response */
@@ -32,20 +33,18 @@ public class RestrictFilter implements Filter {
          * Si l'objet utilisateur n'existe pas dans la session en cours, alors
          * l'utilisateur n'est pas connecté.
          */
-        if ( session.getAttribute( SESSION_USER ) == null ) {
-        	System.out.println("ici1");
+        boolean toPublic =  request.getRequestURL().toString().contains(ACCES_PUBLIC) || request.getRequestURL().toString().contains(PUBLIC_FOLDER);
+        if ( session.getAttribute( UTILISATEUR ) == null  && !toPublic) {
 
             /* Redirection vers la page publique */
             response.sendRedirect( request.getContextPath() + ACCES_PUBLIC );
         } else {
-        	System.out.println("ici");
             /* Affichage de la page restreinte */
             chain.doFilter( request, response );
         }
 
 	}
 
-	@Override
 	public void destroy() {
 	}
 

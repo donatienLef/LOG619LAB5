@@ -1,5 +1,11 @@
 package com.pro.dao;
 
+import com.pro.dao.exceptions.DAOConfigurationException;
+import com.pro.dao.implementation.ConfigurationDaoImpl;
+import com.pro.dao.implementation.UtilisateurDaoImpl;
+import com.pro.dao.intefaces.ConfigurationDao;
+import com.pro.dao.intefaces.UtilisateurDao;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
@@ -9,27 +15,38 @@ import java.util.Properties;
 
 public class DAOFactory {
 
+    private static final DAOFactory _instance = createInstance();
+
     private static final String FICHIER_PROPERTIES       = "/dao.properties";
     private static final String PROPERTY_URL             = "url";
     private static final String PROPERTY_DRIVER          = "driver";
     private static final String PROPERTY_NOM_UTILISATEUR = "nomutilisateur";
     private static final String PROPERTY_MOT_DE_PASSE    = "motdepasse";
 
+
+
     private String              url;
     private String              username;
     private String              password;
 
-    DAOFactory( String url, String username, String password ) {
+    private UtilisateurDao utilisateurDao = new UtilisateurDaoImpl(this);
+    private ConfigurationDao configurationDao = new ConfigurationDaoImpl(this);
+
+    private DAOFactory( String url, String username, String password ) {
         this.url = url;
         this.username = username;
         this.password = password;
     }
 
+
+    public static DAOFactory getInstance() {
+        return _instance;
+    }
     /*
      * Méthode chargée de récupérer les informations de connexion à la base de
      * données, charger le driver JDBC et retourner une instance de la Factory
      */
-    public static DAOFactory getInstance() throws DAOConfigurationException {
+    private static DAOFactory createInstance() throws DAOConfigurationException {
         Properties properties = new Properties();
         String url;
         String driver;
@@ -102,6 +119,9 @@ public class DAOFactory {
      * pour le moment)
      */
      public UtilisateurDao getUtilisateurDao() {
-         return new UtilisateurDaoImpl( this );
+         return utilisateurDao;
+     }
+     public ConfigurationDao getConfigurationDao() {
+         return configurationDao;
      }
 }

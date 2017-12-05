@@ -5,7 +5,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import com.pro.beans.Utilisateur;
-import com.pro.dao.UtilisateurDao;
+import com.pro.dao.intefaces.UtilisateurDao;
 
 public class IdentificationForm {
 	private String CHAMP_EMAIL="email";

@@ -2,7 +2,7 @@ package com.pro.forms;
 
 import com.pro.beans.Configurations;
 import com.pro.beans.Utilisateur;
-import com.pro.dao.UtilisateurDao;
+import com.pro.dao.intefaces.UtilisateurDao;
 
 import java.util.HashMap;
 import java.util.Map;

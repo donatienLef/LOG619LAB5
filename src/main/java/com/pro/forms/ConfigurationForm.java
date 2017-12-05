@@ -1,7 +1,7 @@
 package com.pro.forms;
 
 import com.pro.beans.Configurations;
-import com.pro.dao.ConfigurationDao;
+import com.pro.dao.intefaces.ConfigurationDao;
 
 import java.util.HashMap;
 import java.util.Map;

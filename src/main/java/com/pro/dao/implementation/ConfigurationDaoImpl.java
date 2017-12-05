@@ -1,4 +1,4 @@
-package com.pro.dao;
+package com.pro.dao.implementation;
 
 import static com.pro.dao.DAOUtilitaire.fermeturesSilencieuses;
 import static com.pro.dao.DAOUtilitaire.initialisationRequetePreparee;
@@ -10,6 +10,9 @@ import java.sql.SQLException;
 
 
 import com.pro.beans.Configurations;
+import com.pro.dao.intefaces.ConfigurationDao;
+import com.pro.dao.exceptions.DAOException;
+import com.pro.dao.DAOFactory;
 
 public class ConfigurationDaoImpl implements ConfigurationDao {
 	private DAOFactory daoFactory;
@@ -27,7 +30,6 @@ public class ConfigurationDaoImpl implements ConfigurationDao {
 		this.daoFactory = daoFactory;
 	}
 
-	@Override
 	public Configurations readConfigurationDefault() throws DAOException {
 		Connection connexion = null;
         PreparedStatement preparedStatement = null;
@@ -57,7 +59,6 @@ public class ConfigurationDaoImpl implements ConfigurationDao {
 		return configurationDefault;
 	}
 
-	@Override
 	public Configurations updateConfigurationDefault(Configurations configuration) throws DAOException {
 		updateConfigurationDefaultPrivate(SQL_UPDATE_DEFAUlT, configuration.getMdpPattern(), configuration.getNbeTentativeMax(), configuration.getNbeMinutesEntreTentative(), configuration.getBlocageIsPossible(), configuration.getChangePasswordAfterNTentative(), configuration.getChangePasswordAfterForget());
 		return null;

@@ -9,38 +9,37 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.pro.Lib.Ref;
 import com.pro.beans.Utilisateur;
 import com.pro.dao.DAOFactory;
-import com.pro.dao.UtilisateurDao;
+import com.pro.dao.intefaces.UtilisateurDao;
+import com.pro.servlets.abstracts.AbstractServlet;
 
-public class ListeUtilisateur extends HttpServlet {
-	private UtilisateurDao utilisateurDao;
-	public static final String CONF_DAO_FACTORY = "daofactory";
-	public static final String LISTE_UTILISATEUR = "/WEB-INF/ListeUtilisateur.jsp";
-	public static final String SESSION_UTILISATEUR = "utilisateur";
+import static com.pro.Lib.Ref.ADMINISTRATEUR;
+import static com.pro.Lib.Ref.UTILISATEUR;
 
-	public void init() throws ServletException {
-		this.utilisateurDao = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getUtilisateurDao();
+public class ListeUtilisateur extends AbstractServlet {
+
+	private static final String VUE = "/WEB-INF/ListeUtilisateur.jsp";
+	private static final String HOME = "/home";
+
+	public ListeUtilisateur() {
+		super(VUE);
 	}
+
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		if (session.getAttribute(SESSION_UTILISATEUR) != null) {
-			Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateur");
-			if (utilisateur.getPoste().equals("Administrateur")) {
-				List<Utilisateur> listeUtilisateur = utilisateurDao.getAllUtilisateur();
-				request.setAttribute("ListeUtilisateur", listeUtilisateur);
-				this.getServletContext().getRequestDispatcher(LISTE_UTILISATEUR).forward(request, response);
-			} else {
-				this.getServletContext().getRequestDispatcher("/Home").forward(request, response);
+			Utilisateur utilisateur = (Utilisateur) session.getAttribute(UTILISATEUR);
+			switch (utilisateur.getPoste()){
+				case ADMINISTRATEUR:
+					List<Utilisateur> listeUtilisateur = utilisateurDao.getAllUtilisateur();
+					request.setAttribute(Ref.LISTE_UTILISATEUR, listeUtilisateur);
+					sendToVue(VUE, request, response);
+					break;
+				default:
+					sendToVue(HOME, request, response);
 			}
-
-		} else
-
-		{
-			response.sendRedirect(request.getContextPath() + "/Identification");
-		}
-
 	}
 
 }

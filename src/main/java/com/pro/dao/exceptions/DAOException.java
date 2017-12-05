@@ -1,4 +1,4 @@
-package com.pro.dao;
+package com.pro.dao.exceptions;
 
 public class DAOException extends RuntimeException {
 	   /*

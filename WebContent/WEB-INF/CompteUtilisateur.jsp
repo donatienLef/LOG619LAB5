@@ -7,8 +7,8 @@
 <meta charset="utf-8" />
 <title>Compte Utilisateur</title>
 <link type="text/css" rel="stylesheet"
-	href="<c:url value="/inc/style.css"/>" />
-<c:import url="/inc/menu.jsp" />
+	href="<c:url value="/public/style.css"/>" />
+<c:import url="/public/menu.jsp" />
 </head>
 <body>
 	<div id="corps">

@@ -4,10 +4,6 @@ import static org.junit.Assert.*;
 
 import java.sql.SQLException;
 
-import javax.naming.spi.InitialContextFactory;
-import javax.servlet.Servlet;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,21 +15,11 @@ import org.junit.Test;
 
 import com.pro.beans.Configurations;
 import com.pro.beans.Utilisateur;
-import com.pro.config.InitialisationDaoFactory;
-import com.pro.dao.ConfigurationDaoImpl;
-import com.pro.dao.DAOException;
+import com.pro.dao.implementation.ConfigurationDaoImpl;
 import com.pro.dao.DAOFactory;
-import com.pro.dao.UtilisateurDao;
-import com.pro.dao.UtilisateurDaoImpl;
+import com.pro.dao.intefaces.UtilisateurDao;
 import com.pro.forms.IdentificationForm;
 import static org.easymock.EasyMock.*;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-
-import javax.crypto.SecretKey;
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.PBEKeySpec;
 
 
 public class AuthentificationTest extends HttpServlet{
