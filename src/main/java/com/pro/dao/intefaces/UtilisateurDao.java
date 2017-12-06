@@ -8,8 +8,9 @@ import com.pro.dao.exceptions.DAOException;
 public interface UtilisateurDao {
 	public Utilisateur trouver(String email, String motdepasse) throws DAOException;
 	public Utilisateur insert(Utilisateur utilisateur) throws DAOException;
-	public String getMessageUtilisateur(Utilisateur utilisateur);
-	public List<Utilisateur> getAllUtilisateur();
+	public boolean changePassword(Utilisateur utilisateur, String motdepasse, boolean mustChange, boolean timeChange);
+	public void setBlocked(String email, boolean blocked, boolean mustChange);
+	public List<Utilisateur> getAllUtilisateur(String poste);
 
 
 }

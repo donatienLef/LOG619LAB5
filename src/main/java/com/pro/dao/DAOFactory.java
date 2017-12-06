@@ -2,8 +2,10 @@ package com.pro.dao;
 
 import com.pro.dao.exceptions.DAOConfigurationException;
 import com.pro.dao.implementation.ConfigurationDaoImpl;
+import com.pro.dao.implementation.LogDaoImpl;
 import com.pro.dao.implementation.UtilisateurDaoImpl;
 import com.pro.dao.intefaces.ConfigurationDao;
+import com.pro.dao.intefaces.LogDao;
 import com.pro.dao.intefaces.UtilisateurDao;
 
 import java.io.IOException;
@@ -15,24 +17,21 @@ import java.util.Properties;
 
 public class DAOFactory {
 
-    private static final DAOFactory _instance = createInstance();
-
-    private static final String FICHIER_PROPERTIES       = "/dao.properties";
-    private static final String PROPERTY_URL             = "url";
-    private static final String PROPERTY_DRIVER          = "driver";
+    private static final String FICHIER_PROPERTIES = "/dao.properties";
+    private static final String PROPERTY_URL = "url";
+    private static final String PROPERTY_DRIVER = "driver";
     private static final String PROPERTY_NOM_UTILISATEUR = "nomutilisateur";
-    private static final String PROPERTY_MOT_DE_PASSE    = "motdepasse";
-
-
-
-    private String              url;
-    private String              username;
-    private String              password;
+    private static final String PROPERTY_MOT_DE_PASSE = "motdepasse";
+    private static final DAOFactory _instance = createInstance();
+    private String url;
+    private String username;
+    private String password;
 
     private UtilisateurDao utilisateurDao = new UtilisateurDaoImpl(this);
     private ConfigurationDao configurationDao = new ConfigurationDaoImpl(this);
+    private LogDao logDao = new LogDaoImpl(this);
 
-    private DAOFactory( String url, String username, String password ) {
+    private DAOFactory(String url, String username, String password) {
         this.url = url;
         this.username = username;
         this.password = password;
@@ -42,6 +41,7 @@ public class DAOFactory {
     public static DAOFactory getInstance() {
         return _instance;
     }
+
     /*
      * Méthode chargée de récupérer les informations de connexion à la base de
      * données, charger le driver JDBC et retourner une instance de la Factory
@@ -54,74 +54,45 @@ public class DAOFactory {
         String motDePasse;
 
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        InputStream fichierProperties = classLoader.getResourceAsStream( FICHIER_PROPERTIES );
+        InputStream fichierProperties = classLoader.getResourceAsStream(FICHIER_PROPERTIES);
 
-        if ( fichierProperties == null ) {
-            throw new DAOConfigurationException( "Le fichier properties " + FICHIER_PROPERTIES + " est introuvable." );
+        if (fichierProperties == null) {
+            throw new DAOConfigurationException("Le fichier properties " + FICHIER_PROPERTIES + " est introuvable.");
         }
 
         try {
-            properties.load( fichierProperties );
-            url = properties.getProperty( PROPERTY_URL );
-            driver = properties.getProperty( PROPERTY_DRIVER );
-            nomUtilisateur = properties.getProperty( PROPERTY_NOM_UTILISATEUR );
-            motDePasse = properties.getProperty( PROPERTY_MOT_DE_PASSE );
-        } catch ( IOException e ) {
-            throw new DAOConfigurationException( "Impossible de charger le fichier properties " + FICHIER_PROPERTIES, e );
+            properties.load(fichierProperties);
+            url = properties.getProperty(PROPERTY_URL);
+            driver = properties.getProperty(PROPERTY_DRIVER);
+            nomUtilisateur = properties.getProperty(PROPERTY_NOM_UTILISATEUR);
+            motDePasse = properties.getProperty(PROPERTY_MOT_DE_PASSE);
+        } catch (IOException e) {
+            throw new DAOConfigurationException("Impossible de charger le fichier properties " + FICHIER_PROPERTIES, e);
         }
 
         try {
-            Class.forName( driver );
-        } catch ( ClassNotFoundException e ) {
-            throw new DAOConfigurationException( "Le driver est introuvable dans le classpath.", e );
+            Class.forName(driver);
+        } catch (ClassNotFoundException e) {
+            throw new DAOConfigurationException("Le driver est introuvable dans le classpath.", e);
         }
 
-        DAOFactory instance = new DAOFactory( url, nomUtilisateur, motDePasse );
+        DAOFactory instance = new DAOFactory(url, nomUtilisateur, motDePasse);
         return instance;
     }
 
-    /* Méthode chargée de fournir une connexion à la base de données */
-     /* package */ 
     public Connection getConnection() throws SQLException {
-        return DriverManager.getConnection( url, username, password );
+        return DriverManager.getConnection(url, username, password);
     }
-     public static DAOFactory getInstanceMock() throws DAOConfigurationException {
-         Properties properties = new Properties();
-         String url;
-         String driver;
-         String nomUtilisateur;
-         String motDePasse;
 
-         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-         InputStream fichierProperties = classLoader.getResourceAsStream( FICHIER_PROPERTIES );
+    public UtilisateurDao getUtilisateurDao() {
+        return utilisateurDao;
+    }
 
+    public ConfigurationDao getConfigurationDao() {
+        return configurationDao;
+    }
 
-             url = "jdbc:mysql://localhost:8889/MC2I";
-             driver = "com.mysql.jdbc.Driver";
-             nomUtilisateur = "root";
-             motDePasse = "root";
-      
-
-         try {
-             Class.forName( driver );
-         } catch ( ClassNotFoundException e ) {
-             throw new DAOConfigurationException( "Le driver est introuvable dans le classpath.", e );
-         }
-
-         DAOFactory instance = new DAOFactory( url, nomUtilisateur, motDePasse );
-         return instance;
-     }
-
-     
-     
-    /*
-     * Méthodes de récupération de l'implémentation des différents DAO (un seul
-     * pour le moment)
-     */
-     public UtilisateurDao getUtilisateurDao() {
-         return utilisateurDao;
-     }
-     public ConfigurationDao getConfigurationDao() {
-         return configurationDao;
-     }
+    public LogDao getLogDao() {
+        return logDao;
+    }
 }

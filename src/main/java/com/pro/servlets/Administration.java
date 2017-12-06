@@ -2,6 +2,7 @@ package com.pro.servlets;
 
 import java.io.IOException;
 
+import com.pro.Lib.Ref;
 import com.pro.dao.DAOFactory;
 import com.pro.forms.ConfigurationForm;
 import com.pro.servlets.abstracts.DoubleAuthServlet;
@@ -12,8 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import static com.pro.Lib.Ref.VALID;
-
-@SuppressWarnings("serial")
 
 public class Administration extends DoubleAuthServlet {
 	public static final String ATT_FORM = "form";
@@ -27,11 +26,6 @@ public class Administration extends DoubleAuthServlet {
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		super.doPost(request, response);
-		HttpSession session = request.getSession();
-		if(!Boolean.TRUE.equals(session.getAttribute(VALID))) {
-			response.sendRedirect("/home");
-			return;
-		}
 
 		ConfigurationForm formConfig = new ConfigurationForm();
 		formConfig.setConfiguration(request, DAOFactory.getInstance().getConfigurationDao());

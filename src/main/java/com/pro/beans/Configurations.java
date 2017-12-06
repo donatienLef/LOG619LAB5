@@ -1,11 +1,13 @@
 package com.pro.beans;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
+
 public class Configurations {
 	private String mdpPattern = ".{3,}" ;
 	private Integer nbeTentativeMax = 0;
 	private Integer nbeMinutesEntreTentative = 1;
 	private Boolean blocageIsPossible = false;
-	private Integer changePasswordAfterNTentative = 0;
+	private Boolean changePasswordAfterNTentative = false;
 	private Boolean changePasswordAfterForget = false;
 	
 	
@@ -27,10 +29,10 @@ public class Configurations {
 	public void setNbeMinutesEntreTentative(Integer NbeMinutesEntreTentative){
 		this.nbeMinutesEntreTentative = NbeMinutesEntreTentative;
 	}
-	public Integer getChangePasswordAfterNTentative(){
+	public Boolean getChangePasswordAfterNTentative(){
 		return this.changePasswordAfterNTentative;
 	}
-	public void setChangePasswordAfterNTentative(Integer changePasswordAfterNTentative){
+	public void setChangePasswordAfterNTentative(Boolean changePasswordAfterNTentative){
 		this.changePasswordAfterNTentative = changePasswordAfterNTentative;
 	}
 	public Boolean getBlocageIsPossible(){

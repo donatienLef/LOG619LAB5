@@ -23,15 +23,15 @@ public abstract class DoubleAuthServlet extends AbstractServlet{
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession sess = req.getSession();
         sess.setAttribute(REQUIRES_DOUBLE_AUTH, Boolean.TRUE);
+        req.setAttribute("TARGET", req.getRequestURL());
         sendToVue(AUTH_VIEW, req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession sess = req.getSession();
-        sess.setAttribute(VALID, Boolean.FALSE);
         if(sess.getAttribute(UTILISATEUR) == null) {
-            resp.sendRedirect("/indentification");
+            resp.sendRedirect("/Indentification");
             return;
         }else if(Boolean.TRUE.equals(sess.getAttribute(REQUIRES_DOUBLE_AUTH))){
             Utilisateur utilisateur = (Utilisateur) sess.getAttribute(UTILISATEUR);
@@ -43,8 +43,9 @@ public abstract class DoubleAuthServlet extends AbstractServlet{
             Utilisateur utilFound = utilsateurDao.trouver(email, password);
             if(utilFound != null) {
                 sess.setAttribute(REQUIRES_DOUBLE_AUTH, Boolean.FALSE);
-                sess.setAttribute(VALID, Boolean.TRUE);
                 sendToVue(this.vue, req, resp);
+            }else{
+                resp.sendRedirect(req.getRequestURL().toString());
             }
             return;
         }

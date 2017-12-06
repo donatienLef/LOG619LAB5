@@ -1,21 +1,18 @@
 package com.pro.dao.implementation;
 
-import static com.pro.dao.DAOUtilitaire.fermeturesSilencieuses;
-import static com.pro.dao.DAOUtilitaire.initialisationRequetePreparee;
+
+import com.pro.beans.Configurations;
+import com.pro.dao.DAOFactory;
+import com.pro.dao.exceptions.DAOException;
+import com.pro.dao.intefaces.ConfigurationDao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+public class ConfigurationDaoImpl extends BaseDao implements ConfigurationDao {
 
-import com.pro.beans.Configurations;
-import com.pro.dao.intefaces.ConfigurationDao;
-import com.pro.dao.exceptions.DAOException;
-import com.pro.dao.DAOFactory;
-
-public class ConfigurationDaoImpl implements ConfigurationDao {
-	private DAOFactory daoFactory;
 	private static final String CHAMP_MDP_PATTERN  = "mdpPattern";
     private static final String CHAMP_NBE_TENTATIVE_MAX   = "nbeTentativeMax";
     private static final String CHAMP_NBE_MINUTES_ENTRE_TENTATIVE   = "nbeMinutesEntreTentative";
@@ -27,13 +24,13 @@ public class ConfigurationDaoImpl implements ConfigurationDao {
 
 	// permet de recupérer la connexion à la base de donnée
 	public ConfigurationDaoImpl(DAOFactory daoFactory) {
-		this.daoFactory = daoFactory;
+		super(daoFactory);
 	}
 
 	public Configurations readConfigurationDefault() throws DAOException {
 		Connection connexion = null;
         PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;  
+        ResultSet resultSet = null;
         Configurations configurationDefault = null;
         try {
             /* RÃ©cupÃ©ration d'une connexion depuis la Factory */
@@ -46,49 +43,31 @@ public class ConfigurationDaoImpl implements ConfigurationDao {
             resultSet = preparedStatement.executeQuery();
             /* Parcours de la ligne de donnÃ©es retournÃ©e dans le ResultSet */
             if ( resultSet.next() ) {
-                    configurationDefault = map( resultSet ); 
+                    configurationDefault = map( resultSet );
             }
         } catch ( SQLException e ) {
             throw new DAOException( e );
-        } 
+        }
         finally {
             fermeturesSilencieuses( resultSet, preparedStatement, connexion );
         }
-      
-		
+
+
 		return configurationDefault;
 	}
 
 	public Configurations updateConfigurationDefault(Configurations configuration) throws DAOException {
-		updateConfigurationDefaultPrivate(SQL_UPDATE_DEFAUlT, configuration.getMdpPattern(), configuration.getNbeTentativeMax(), configuration.getNbeMinutesEntreTentative(), configuration.getBlocageIsPossible(), configuration.getChangePasswordAfterNTentative(), configuration.getChangePasswordAfterForget());
+		updateSQL(SQL_UPDATE_DEFAUlT, configuration.getMdpPattern(), configuration.getNbeTentativeMax(), configuration.getNbeMinutesEntreTentative(), configuration.getBlocageIsPossible(), configuration.getChangePasswordAfterNTentative(), configuration.getChangePasswordAfterForget());
 		return null;
 	}
-	private Configurations updateConfigurationDefaultPrivate(String sql, Object... objets){
-		Connection connexion = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;  
-        try {
-            connexion = daoFactory.getConnection();
 
-            preparedStatement = initialisationRequetePreparee( connexion, sql, false, objets );
-            preparedStatement.executeUpdate();
-
-        } catch ( SQLException e ) {
-            throw new DAOException( e );
-        } 
-        finally {
-            fermeturesSilencieuses( resultSet, preparedStatement, connexion );
-        }
-		return null;
-	}
-	
 	private static Configurations map( ResultSet resultSet ) throws SQLException {
 		Configurations config = new Configurations();
 		config.setMdpPattern(resultSet.getString(CHAMP_MDP_PATTERN));
 		config.setNbeTentativeMax(Integer.parseInt(resultSet.getString(CHAMP_NBE_TENTATIVE_MAX)));
 		config.setNbeMinutesEntreTentative(Integer.parseInt(resultSet.getString(CHAMP_NBE_MINUTES_ENTRE_TENTATIVE)));
 		config.setBlocageIsPossible(customParseBoolean(resultSet.getString(CHAMP_BLOCAGE_IS_POSSIBLE)));
-		config.setChangePasswordAfterNTentative(Integer.parseInt(resultSet.getString(CHAMP_CHANGE_PASSWORD_AFTER_N_TENTATIVE)));
+		config.setChangePasswordAfterNTentative(customParseBoolean(resultSet.getString(CHAMP_CHANGE_PASSWORD_AFTER_N_TENTATIVE)));
 		config.setChangePasswordAfterForget(customParseBoolean(resultSet.getString(CHAMP_CHANGE_PASSWORD_AFTER_FORGET)));
         return config;
     }

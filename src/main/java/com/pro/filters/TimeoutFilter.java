@@ -17,13 +17,20 @@ public class TimeoutFilter implements Filter {
 
 
     private static final long MILLIS_TO_MIN = 1000 * 60;
+    private static final String PUBLIC = "/public/";
 
     public void init(FilterConfig filterConfig) throws ServletException {
         
     }
 
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        HttpSession session = ((HttpServletRequest)servletRequest).getSession();
+        HttpServletRequest request = (HttpServletRequest) servletRequest;
+        HttpSession session = request.getSession();
+
+        if(request.getRequestURL().toString().contains(PUBLIC)){
+            filterChain.doFilter(servletRequest, servletResponse);
+            return;
+        }
 
         if(session.getAttribute(TIMEOUT_START) != null) {
             Date date = (Date) session.getAttribute(TIMEOUT_START);

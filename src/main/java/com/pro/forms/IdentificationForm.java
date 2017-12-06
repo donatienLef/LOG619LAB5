@@ -13,9 +13,11 @@ public class IdentificationForm {
 	private String CHAMP_COMPTE="compte";
     private Map<String, String> erreurs         = new HashMap<String, String>();
 
+    public String email;
+
 	public Utilisateur trouver(HttpServletRequest request, UtilisateurDao utilisateurDao){
 		Utilisateur utilisateur=null;
-		String email = getValeurChamp( request, CHAMP_EMAIL );
+		email = getValeurChamp( request, CHAMP_EMAIL );
 		String motdepasse = getValeurChamp( request, CHAMP_MOTDEPASSE );
 		//On check la forme des données
 		try {
@@ -34,8 +36,16 @@ public class IdentificationForm {
 		}catch ( Exception e ) {
             setErreur( CHAMP_COMPTE, "Email ou mot de passe invalide" );
         }
+
+        if(utilisateur != null && utilisateur.isBlocked()) {
+			setErreur(CHAMP_COMPTE, "Votre compte est bloqué, contacter admin");
+			utilisateur = null;
+		}
+
 		return utilisateur;
 	}
+
+
 	private void validationEmail( String email ) throws Exception {
 	    if ( email != null && email.trim().length() != 0 ) {
 	        if ( !email.matches( "([^.@]+)(\\.[^.@]+)*@([^.@]+\\.)+([^.@]+)" ) ) {
@@ -65,7 +75,7 @@ public class IdentificationForm {
 	   /*
      * Ajoute un message correspondant au champ spécifié à la map des erreurs.
      */
-    private void setErreur( String champ, String message ) {
+    public void setErreur( String champ, String message ) {
         erreurs.put( champ, message );
     }
     public Map<String, String> getErreurs() {

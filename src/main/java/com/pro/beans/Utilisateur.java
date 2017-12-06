@@ -7,6 +7,16 @@ public class Utilisateur {
 	private String poste;
 	private String message;
 
+	public boolean isBlocked() {
+		return blocked;
+	}
+
+	public void setBlocked(boolean blocked) {
+		this.blocked = blocked;
+	}
+
+	private boolean blocked;
+
 	// accesseur
 	public void setNom(String nom) {
 		this.nom = nom;

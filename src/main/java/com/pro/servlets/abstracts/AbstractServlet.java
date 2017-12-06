@@ -4,6 +4,7 @@ import com.pro.beans.Configurations;
 import com.pro.beans.Utilisateur;
 import com.pro.dao.DAOFactory;
 import com.pro.dao.intefaces.ConfigurationDao;
+import com.pro.dao.intefaces.LogDao;
 import com.pro.dao.intefaces.UtilisateurDao;
 
 import javax.servlet.ServletException;
@@ -24,10 +25,10 @@ public abstract class AbstractServlet extends HttpServlet {
     protected UtilisateurDao utilisateurDao;
     protected Configurations configuration;
     protected ConfigurationDao configurationDao;
+    protected LogDao logDao;
 
     public AbstractServlet(String vue){
         this.vue = vue;
-
     }
 
     @Override
@@ -35,6 +36,7 @@ public abstract class AbstractServlet extends HttpServlet {
         super.init();
         utilisateurDao = DAOFactory.getInstance().getUtilisateurDao();
         configurationDao = DAOFactory.getInstance().getConfigurationDao();
+        logDao = DAOFactory.getInstance().getLogDao();
     }
 
     @Override

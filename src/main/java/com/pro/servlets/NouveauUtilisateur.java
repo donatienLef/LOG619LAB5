@@ -8,6 +8,7 @@ import com.pro.beans.Utilisateur;
 import com.pro.dao.DAOFactory;
 import com.pro.dao.intefaces.UtilisateurDao;
 import com.pro.servlets.abstracts.AbstractServlet;
+import com.pro.servlets.abstracts.DoubleAuthServlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -20,7 +21,7 @@ import static com.pro.Lib.Ref.UTILISATEUR;
 
 @SuppressWarnings("serial")
 
-public class NouveauUtilisateur extends AbstractServlet {
+public class NouveauUtilisateur extends DoubleAuthServlet {
 	public static final String ATT_USER = "utilisateur";
     public static final String ATT_FORM = "form";
     public static final String VUE = "/WEB-INF/NouveauUtilisateur.jsp";
@@ -36,14 +37,15 @@ public class NouveauUtilisateur extends AbstractServlet {
 		HttpSession session = request.getSession();
 		Utilisateur utilisateur = (Utilisateur) session.getAttribute(UTILISATEUR);
 		if (utilisateur.getPoste().equals(ADMINISTRATEUR)) {
-			sendToVue(NOUVEAU_UTILISATEUR, request, response);
+			super.doGet(request, response);
 		} else {
 			sendToVue(HOME_VUE, request, response);
 		}
 	}
 
 	public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException{
-        /* Préparation de l'objet formulaire */
+        super.doPost(request, response);
+		/* Préparation de l'objet formulaire */
 		NouveauUtilisateurForm form = new NouveauUtilisateurForm();
         
         /* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */

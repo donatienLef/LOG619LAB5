@@ -15,7 +15,8 @@ import javax.servlet.http.HttpSession;
 import static com.pro.Lib.Ref.UTILISATEUR;
 
 public class RestrictFilter implements Filter {
-    public static final String ACCES_PUBLIC     = "/Identification";
+    public static final String IDENTIFICATION     = "/Identification";
+    public static final String INSCRIPTION = "/Inscription";
     public static final String PUBLIC_FOLDER = "/public/";
 
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -33,11 +34,12 @@ public class RestrictFilter implements Filter {
          * Si l'objet utilisateur n'existe pas dans la session en cours, alors
          * l'utilisateur n'est pas connecté.
          */
-        boolean toPublic =  request.getRequestURL().toString().contains(ACCES_PUBLIC) || request.getRequestURL().toString().contains(PUBLIC_FOLDER);
+        String url = request.getRequestURL().toString();
+        boolean toPublic =  url.contains(INSCRIPTION) || url.contains(PUBLIC_FOLDER) || url.contains(IDENTIFICATION);
         if ( session.getAttribute( UTILISATEUR ) == null  && !toPublic) {
 
             /* Redirection vers la page publique */
-            response.sendRedirect( request.getContextPath() + ACCES_PUBLIC );
+            response.sendRedirect( request.getContextPath() + IDENTIFICATION );
         } else {
             /* Affichage de la page restreinte */
             chain.doFilter( request, response );

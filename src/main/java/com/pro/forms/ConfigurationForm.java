@@ -33,8 +33,9 @@ public final class ConfigurationForm {
     	Integer nbeTentativeMax = Integer.parseInt(getValeurChamp( request, CHAMP_NBE_TENTATIVE_MAX ));
     	Integer nbeMinutesEntreTentative = Integer.parseInt(getValeurChamp( request, CHAMP_NBE_MINUTES_ENTRE_TENTATIVE ));
     	Boolean blocageIsPossible = Boolean.parseBoolean(getValeurChamp( request, CHAMP_BLOCAGE_IS_POSSIBLE ));
-    	Integer changePasswordAfterNTentative = Integer.parseInt(getValeurChamp( request, CHAMP_CHANGE_PASSWORD_AFTER_N_TENTATIVE ));
+    	Boolean changePasswordAfterNTentative = Boolean.parseBoolean(getValeurChamp( request, CHAMP_CHANGE_PASSWORD_AFTER_N_TENTATIVE ));
     	Boolean changePasswordAfterForget = Boolean.parseBoolean(getValeurChamp( request, CHAMP_CHANGE_PASSWORD_AFTER_FORGET ));
+
     	Configurations configuration = new Configurations();
     	configuration.setMdpPattern(mdpPattern);
     	configuration.setNbeTentativeMax(nbeTentativeMax);

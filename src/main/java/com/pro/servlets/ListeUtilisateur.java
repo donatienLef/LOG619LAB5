@@ -1,6 +1,7 @@
 package com.pro.servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -15,8 +16,7 @@ import com.pro.dao.DAOFactory;
 import com.pro.dao.intefaces.UtilisateurDao;
 import com.pro.servlets.abstracts.AbstractServlet;
 
-import static com.pro.Lib.Ref.ADMINISTRATEUR;
-import static com.pro.Lib.Ref.UTILISATEUR;
+import static com.pro.Lib.Ref.*;
 
 public class ListeUtilisateur extends AbstractServlet {
 
@@ -31,15 +31,22 @@ public class ListeUtilisateur extends AbstractServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 			Utilisateur utilisateur = (Utilisateur) session.getAttribute(UTILISATEUR);
-			switch (utilisateur.getPoste()){
+		List<Utilisateur> listeUtilisateur = new ArrayList<>();
+		switch (utilisateur.getPoste()){
 				case ADMINISTRATEUR:
-					List<Utilisateur> listeUtilisateur = utilisateurDao.getAllUtilisateur();
-					request.setAttribute(Ref.LISTE_UTILISATEUR, listeUtilisateur);
-					sendToVue(VUE, request, response);
+					listeUtilisateur = utilisateurDao.getAllUtilisateur("%");
+					break;
+				case ADM_AFFAIRE:
+					listeUtilisateur = utilisateurDao.getAllUtilisateur(AFFAIRE);
+					break;
+				case ADM_RESIDENTIEL:
+					listeUtilisateur = utilisateurDao.getAllUtilisateur(RESIDENTIEL);
 					break;
 				default:
-					sendToVue(HOME, request, response);
+
 			}
+		request.setAttribute(Ref.LISTE_UTILISATEUR, listeUtilisateur);
+		sendToVue(VUE, request, response);
 	}
 
 }

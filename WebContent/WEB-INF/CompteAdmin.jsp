@@ -9,16 +9,6 @@
 <link type="text/css" rel="stylesheet"
 	href="<c:url value="/public/style.css"/>" />
 <c:import url="/public/menu.jsp" />
-<script>
-	alert("bravo");
-	if (
-<%request.getSession().getAttribute("Message");%>
-	!= null) {
-		alert("bravo");
-	} else {
-		alert("echec");
-	}
-</script>
 </head>
 <body>
 	<div id="corps">
@@ -26,12 +16,7 @@
 			Bienvenue Mr
 			<c:out value="${ utilisateur.nom }"></c:out>
 		</h2>
-		<c:if test="${Message != null}">
-		<h2>
-		Message Important: ${Message}
-		</h2>
-		</c:if>
-		
+
 
 		<form method="post" action="<c:url value="/Deconnexion"/>">
 			<fieldset>
@@ -40,6 +25,7 @@
 					<li>Votre email est: <c:out value="${ utilisateur.email }"></c:out></li>
 					<li>Vous êtes connecté en tant que: <c:out
 							value="${ utilisateur.poste }"></c:out></li>
+					<li>Votre dernier message : <c:out value="${Message}"></c:out></li>
 				</ul>
 			</fieldset>
 			<input type="submit" value="Deconnexion" />

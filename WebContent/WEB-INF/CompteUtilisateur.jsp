@@ -25,6 +25,7 @@
 							value="${ utilisateur.email }"></c:out></li>
 					<li>Vous êtes connecté en tant que: <c:out
 							value="${ utilisateur.poste }"></c:out></li>
+					<li>Votre dernier message : <c:out value="${Message}"></c:out></li>
 				</ul>
 			</fieldset>
 			<input type="submit" value="Deconnexion" />

@@ -4,6 +4,7 @@ import com.pro.Lib.Ref;
 import com.pro.beans.Configurations;
 import com.pro.beans.Utilisateur;
 import com.pro.dao.DAOFactory;
+import com.pro.dao.intefaces.LogDao;
 import com.pro.forms.IdentificationForm;
 import com.pro.servlets.abstracts.AbstractServlet;
 
@@ -20,7 +21,6 @@ public class Identification extends AbstractServlet {
 
     public static final String ATT_FORM = "form";
     public static final String VUE = "/Identification.jsp";
-    public static final String SUCCESS = "/Home";
 
     public Identification() {
         super(VUE);
@@ -29,24 +29,35 @@ public class Identification extends AbstractServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         Configurations configuration = DAOFactory.getInstance().getConfigurationDao().readConfigurationDefault();
-
-        if ((configuration.getNbeTentativeMax() != 0) && ((Integer) session.getAttribute(Ref.TENTATIVE)) >= configuration.getNbeTentativeMax()) {
+        int tentatives = (Integer) session.getAttribute(Ref.TENTATIVE);
+        if ((configuration.getNbeTentativeMax() != 0) && (tentatives > configuration.getNbeTentativeMax())) {
             //alors on bloque
-            session.setAttribute(Ref.TENTATIVE_ERROR, "vous avez dépasser le nombre de tentative");
             session.setAttribute(TIMEOUT_START, new Date());
-            request.getRequestDispatcher(VUE).forward(request, response);
+            response.sendRedirect(HOME);
         } else {
             // creation du formulaire
             IdentificationForm forms = new IdentificationForm();
 
             Utilisateur utilisateur ;
             utilisateur = forms.trouver(request, utilisateurDao);
+            String email = forms.email;
+
+            logDao.addLog(email, "Tentative de connection #"+ session.getAttribute(TENTATIVE));
+
             request.setAttribute(ATT_FORM, forms);
             if (utilisateur != null) {
+                logDao.addLog(email, "Connection OK");
                 session.setAttribute(UTILISATEUR, utilisateur);
-                response.sendRedirect(request.getContextPath() + SUCCESS);
+                response.sendRedirect(HOME);
             } else {
-                session.setAttribute(Ref.TENTATIVE, (Integer) session.getAttribute(TENTATIVE) + 1);
+                logDao.addLog(email, "Connection NOK");
+                session.setAttribute(Ref.TENTATIVE, tentatives + 1);
+
+                if(configuration.getBlocageIsPossible() && configuration.getNbeTentativeMax() != 0 && tentatives >= configuration.getNbeTentativeMax()) {
+                    // on verrouille le compte
+                    utilisateurDao.setBlocked(email, true, configuration.getChangePasswordAfterNTentative());
+                }
+
                 request.getRequestDispatcher(VUE).forward(request, response);
             }
         }
