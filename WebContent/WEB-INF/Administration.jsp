@@ -41,6 +41,11 @@
             <input type="text" id="changePasswordAfterForget" name="changePasswordAfterForget"
                    value="${configuration.getChangePasswordAfterForget()}" size="20"
                    maxlength="60"/>
+            <label for="changePasswordPeriod">changePasswordPeriod<span class="requis">*</span></label>
+            <input type="text" id="changePasswordPeriod" name="changePasswordPeriod"
+                   value="${configuration.getChangePasswordPeriod()}" size="20"
+                   maxlength="60"/>
+
 
             <br/> <input type="submit" value="Set Configurations" class="sansLabel"/>
             <br/>
@@ -48,35 +53,6 @@
 
         </fieldset>
     </form>
-</div>
-<div>
-    <h1>Configurations</h1>
-    <p>Protect BruteForce</p>
-    <p>
-        <input id="checkBox" type="checkbox">
-    <p>Password change</p>
-    <select name="Policy" onBlur="f_papper();">
-        <option value="">---SELECT---</option>
-        <option value="Periodique"
-                <%
-                    if ("value1".equals("bonjour")) {
-                        System.out.print("selected='selected'");
-                    }
-                %>>Periodique
-        </option>
-        <option value="After issue"
-                <%
-                    if ("value1".equals("bonjour")) {
-                        System.out.print("selected='selected'");
-                    }
-                %>>After
-            issue
-        </option>
-    </select>
-    <p>Password Complexity</p>
-    <p>Complexité du mot de passe (longueur, composé d’au moins une
-        minuscule et une majuscule, d’un caractère spécial et d’un chiffre,
-        etc.)</p>
 </div>
 </body>
 </html>

@@ -45,7 +45,7 @@ public abstract class DoubleAuthServlet extends AbstractServlet{
                 sess.setAttribute(REQUIRES_DOUBLE_AUTH, Boolean.FALSE);
                 sendToVue(this.vue, req, resp);
             }else{
-                resp.sendRedirect(req.getRequestURL().toString());
+                doGet(req, resp);
             }
             return;
         }

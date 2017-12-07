@@ -1,0 +1,73 @@
+CREATE TABLE mc2i.logs
+(
+    id int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    account varchar(256) NOT NULL,
+    date datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    message varchar(256)
+);
+CREATE UNIQUE INDEX logs_id_uindex ON mc2i.logs (id);
+CREATE INDEX logs_utilisateur_id_utilisateur_fk ON mc2i.logs (account);
+INSERT INTO mc2i.logs (account, date, message) VALUES ('test@est.com', '2017-12-05 22:41:06', 'Tentative de connection #0');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('test@est.com', '2017-12-05 22:41:06', 'Connection NOK');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('test@test.com', '2017-12-05 22:41:22', 'Tentative de connection #1');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('test@test.com', '2017-12-05 22:41:22', 'Connection NOK');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('test@test.com', '2017-12-05 22:41:40', 'Tentative de connection #2');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('test@test.com', '2017-12-05 22:41:40', 'Connection NOK');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('test@test.com', '2017-12-05 22:43:35', 'Tentative de connection #0');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('test@test.com', '2017-12-05 22:43:35', 'Connection NOK');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('test@test.com', '2017-12-05 22:44:51', 'Tentative de connection #1');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('test@test.com', '2017-12-05 22:44:51', 'Connection NOK');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('test@test.com', '2017-12-05 22:46:26', 'Tentative de connection #0');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('test@test.com', '2017-12-05 22:46:26', 'Connection NOK');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('test@test.com', '2017-12-05 22:48:56', 'Tentative de connection #0');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('test@test.com', '2017-12-05 22:48:56', 'Connection NOK');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('test@test.com', '2017-12-05 22:49:16', 'Tentative de connection #1');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('test@test.com', '2017-12-05 22:49:16', 'Connection NOK');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('test@test.com', '2017-12-05 22:51:37', 'Tentative de connection #2');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('test@test.com', '2017-12-05 22:51:38', 'Connection NOK');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('test@test.com', '2017-12-05 22:52:52', 'Tentative de connection #0');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('test@test.com', '2017-12-05 22:52:52', 'Connection NOK');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('test@test.com', '2017-12-05 22:53:41', 'Tentative de connection #0');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('test@test.com', '2017-12-05 22:53:41', 'Connection OK');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('test@test.com', '2017-12-05 22:55:11', 'Tentative de connection #0');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('test@test.com', '2017-12-05 22:55:11', 'Connection OK');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('test@test.com', '2017-12-05 23:01:16', 'Tentative de connection #0');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('test@test.com', '2017-12-05 23:01:16', 'Connection OK');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('test@test.com', '2017-12-05 23:04:07', 'Tentative de connection #0');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('test@test.com', '2017-12-05 23:04:07', 'Connection OK');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('test@test.com', '2017-12-05 23:09:57', 'Tentative de connection #0');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('test@test.com', '2017-12-05 23:09:57', 'Connection OK');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('test@test.com', '2017-12-05 23:29:49', 'Tentative de connection #0');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('test@test.com', '2017-12-05 23:29:49', 'Connection OK');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('test@test.com', '2017-12-05 23:30:24', 'Tentative de connection #0');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('test@test.com', '2017-12-05 23:30:24', 'Connection OK');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('ca@gmail.com', '2017-12-05 23:38:18', 'Tentative de connection #0');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('ca@gmail.com', '2017-12-05 23:38:18', 'Connection NOK');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('ca@gmail.com', '2017-12-05 23:38:23', 'Tentative de connection #1');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('ca@gmail.com', '2017-12-05 23:38:23', 'Connection NOK');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('ca@gmail.com', '2017-12-05 23:38:33', 'Tentative de connection #2');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('ca@gmail.com', '2017-12-05 23:38:33', 'Connection NOK');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('ca@gmail.com', '2017-12-05 23:38:36', 'Tentative de connection #3');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('ca@gmail.com', '2017-12-05 23:38:36', 'Connection NOK');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('test@test.fr', '2017-12-05 23:40:47', 'Tentative de connection #0');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('test@test.fr', '2017-12-05 23:40:47', 'Connection NOK');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('test@test.com', '2017-12-05 23:40:54', 'Tentative de connection #1');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('test@test.com', '2017-12-05 23:40:54', 'Connection OK');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('test@test.com', '2017-12-05 23:41:03', 'Tentative de connection #0');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('test@test.com', '2017-12-05 23:41:03', 'Connection NOK');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('test@test.com', '2017-12-05 23:41:08', 'Tentative de connection #1');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('test@test.com', '2017-12-05 23:41:08', 'Connection NOK');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('test@test.com', '2017-12-05 23:41:12', 'Tentative de connection #2');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('test@test.com', '2017-12-05 23:41:13', 'Connection NOK');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('test@test.com', '2017-12-05 23:41:19', 'Tentative de connection #3');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('test@test.com', '2017-12-05 23:41:20', 'Connection NOK');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('test@test.com', '2017-12-05 23:42:41', 'Tentative de connection #0');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('test@test.com', '2017-12-05 23:42:41', 'Connection NOK');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('test@test.com', '2017-12-05 23:42:45', 'Tentative de connection #1');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('test@test.com', '2017-12-05 23:42:45', 'Connection NOK');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('test@test.com', '2017-12-05 23:42:49', 'Tentative de connection #2');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('test@test.com', '2017-12-05 23:42:49', 'Connection NOK');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('test@test.com', '2017-12-05 23:42:53', 'Tentative de connection #3');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('test@test.com', '2017-12-05 23:42:53', 'Connection NOK');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('test@test.com', '2017-12-05 23:43:47', 'Tentative de connection #0');
+INSERT INTO mc2i.logs (account, date, message) VALUES ('test@test.com', '2017-12-05 23:43:47', 'Connection NOK');

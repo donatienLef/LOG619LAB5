@@ -14,9 +14,9 @@ public class Ref {
     public static final String CONFIGURATION = "configuration";
 
     public static final String CLIENT = "Client";
-    public static final String RESIDENTIEL = "Client résidentiel";
+    public static final String RESIDENTIEL = "Client residentiel";
     public static final String AFFAIRE = "Client affaire";
-    public static final String ADM_RESIDENTIEL = "Administrateur résidentiel";
+    public static final String ADM_RESIDENTIEL = "Administrateur residentiel";
     public static final String ADM_AFFAIRE = "Administrateur affaire";
     public static final String ADMINISTRATEUR = "Administrateur";
     public static final String LISTE_UTILISATEUR = "ListeUtilisateur";

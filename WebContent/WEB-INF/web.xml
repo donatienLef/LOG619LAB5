@@ -35,6 +35,10 @@
 		<servlet-name>Deconnexion</servlet-name>
 		<servlet-class>com.pro.servlets.Deconnexion</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>ChangePassword</servlet-name>
+		<servlet-class>com.pro.servlets.ChangePassword</servlet-class>
+	</servlet>
 
 
 	<servlet-mapping>
@@ -64,6 +68,10 @@
 	<servlet-mapping>
 		<servlet-name>Deconnexion</servlet-name>
 		<url-pattern>/Deconnexion</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ChangePassword</servlet-name>
+		<url-pattern>/ChangePassword</url-pattern>
 	</servlet-mapping>
 
 

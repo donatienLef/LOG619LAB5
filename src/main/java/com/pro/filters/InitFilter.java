@@ -26,7 +26,7 @@ public class InitFilter implements Filter {
         HttpSession session = request.getSession();
 
         if (session.getAttribute(TENTATIVE) == null) {
-            session.setAttribute(TENTATIVE, 0);
+            session.setAttribute(TENTATIVE, 1);
         }
 
         if (session.getAttribute(VALID) == null) {

@@ -19,6 +19,7 @@ public class ConfigurationDaoImpl extends BaseDao implements ConfigurationDao {
     private static final String CHAMP_BLOCAGE_IS_POSSIBLE    = "blocageIsPossible";
     private static final String CHAMP_CHANGE_PASSWORD_AFTER_N_TENTATIVE   = "changePasswordAfterNTentative";
     private static final String CHAMP_CHANGE_PASSWORD_AFTER_FORGET   = "changePasswordAfterForget";
+    private static final String CHAMP_PERIOD = "changePasswordPeriod";
 	private String SQL_READDEFAULT="SELECT `idConfiguration`, `nomConfiguration`, `mdpPattern`, `nbeTentativeMax`, `nbeMinutesEntreTentative`, `blocageIsPossible`, `changePasswordAfterNTentative`, `changePasswordAfterForget` FROM `Configurations` where 1";
 	private String SQL_UPDATE_DEFAUlT = "UPDATE `Configurations` SET `mdpPattern`=?,`nbeTentativeMax`=?,`nbeMinutesEntreTentative`=?,`blocageIsPossible`=?,`changePasswordAfterNTentative`=?,`changePasswordAfterForget`=? WHERE 1";
 
@@ -69,6 +70,7 @@ public class ConfigurationDaoImpl extends BaseDao implements ConfigurationDao {
 		config.setBlocageIsPossible(customParseBoolean(resultSet.getString(CHAMP_BLOCAGE_IS_POSSIBLE)));
 		config.setChangePasswordAfterNTentative(customParseBoolean(resultSet.getString(CHAMP_CHANGE_PASSWORD_AFTER_N_TENTATIVE)));
 		config.setChangePasswordAfterForget(customParseBoolean(resultSet.getString(CHAMP_CHANGE_PASSWORD_AFTER_FORGET)));
+		config.setChangePasswordPeriod(Integer.parseInt(resultSet.getString(CHAMP_PERIOD)));
         return config;
     }
 	private static Boolean customParseBoolean(String value){

@@ -17,7 +17,7 @@ import com.pro.dao.intefaces.UtilisateurDao;
 import org.mindrot.jbcrypt.*;
 
 public class UtilisateurDaoImpl extends BaseDao implements UtilisateurDao {
-	private long MONTHS = 1000 * 60 * 60 * 24 * 30;
+	private long DAYS = 1000 * 60 * 60 * 24;
 
 	private String SQL_TROUVER = "SELECT * FROM Utilisateur where email=?";
 	private String SQL_INSERT = "INSERT INTO `Utilisateur`(`nom`, `email`, `poste`, `motdepasse`) VALUES (?,?,?,?)";
@@ -37,11 +37,11 @@ public class UtilisateurDaoImpl extends BaseDao implements UtilisateurDao {
 	}
 
 	@Override
-	public boolean changePassword(Utilisateur utilisateur, String motdepasse, boolean mustChange, boolean timeChange) {
+	public boolean changePassword(Utilisateur utilisateur, String motdepasse, boolean mustChange, int timeChange) {
 		Date changeTime = new Date();
 		long lTime = changeTime.getTime();
-		changeTime.setTime(lTime + 3 * MONTHS);
-		return updateSQL(SQL_UPDATE_PASSWORD, motdepasse, mustChange, timeChange ? changeTime : null, utilisateur.getEmail());
+		changeTime.setTime(lTime + timeChange * DAYS);
+		return updateSQL(SQL_UPDATE_PASSWORD, BCrypt.hashpw(motdepasse, BCrypt.gensalt()), mustChange, timeChange != 0 ? changeTime : null, utilisateur.getEmail());
 	}
 
 	@Override

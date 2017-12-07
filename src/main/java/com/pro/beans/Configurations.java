@@ -9,8 +9,9 @@ public class Configurations {
 	private Boolean blocageIsPossible = false;
 	private Boolean changePasswordAfterNTentative = false;
 	private Boolean changePasswordAfterForget = false;
-	
-	
+	private int changePasswordPeriod;
+
+
 	public String getMdpPattern(){
 		return this.mdpPattern;
 	}
@@ -46,5 +47,13 @@ public class Configurations {
 	}
 	public void setChangePasswordAfterForget(Boolean changePasswordAfterForget){
 		this.changePasswordAfterForget= changePasswordAfterForget;
+	}
+
+    public void setChangePasswordPeriod(int changePasswordPeriod) {
+        this.changePasswordPeriod = changePasswordPeriod;
+    }
+
+	public int getChangePasswordPeriod() {
+		return changePasswordPeriod;
 	}
 }

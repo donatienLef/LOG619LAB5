@@ -16,6 +16,7 @@ public final class ConfigurationForm {
     private static final String CHAMP_BLOCAGE_IS_POSSIBLE    = "blocageIsPossible";
     private static final String CHAMP_CHANGE_PASSWORD_AFTER_N_TENTATIVE   = "changePasswordAfterNTentative";
     private static final String CHAMP_CHANGE_PASSWORD_AFTER_FORGET   = "changePasswordAfterForget";
+    private static final String CHAMP_CHANGE_PASSWORD_PERIOD   = "c";
 
     private String              resultat;
     private Map<String, String> erreurs      = new HashMap<String, String>();
@@ -35,6 +36,7 @@ public final class ConfigurationForm {
     	Boolean blocageIsPossible = Boolean.parseBoolean(getValeurChamp( request, CHAMP_BLOCAGE_IS_POSSIBLE ));
     	Boolean changePasswordAfterNTentative = Boolean.parseBoolean(getValeurChamp( request, CHAMP_CHANGE_PASSWORD_AFTER_N_TENTATIVE ));
     	Boolean changePasswordAfterForget = Boolean.parseBoolean(getValeurChamp( request, CHAMP_CHANGE_PASSWORD_AFTER_FORGET ));
+    	Integer changePasswordPeriod = Integer.parseInt(getValeurChamp(request, CHAMP_CHANGE_PASSWORD_PERIOD));
 
     	Configurations configuration = new Configurations();
     	configuration.setMdpPattern(mdpPattern);
@@ -43,6 +45,7 @@ public final class ConfigurationForm {
     	configuration.setBlocageIsPossible(blocageIsPossible);
     	configuration.setChangePasswordAfterNTentative(changePasswordAfterNTentative);
     	configuration.setChangePasswordAfterForget(changePasswordAfterForget);
+    	configuration.setChangePasswordPeriod(changePasswordPeriod);
     	configurationDao.updateConfigurationDefault(configuration);
     	return configuration;
     }
